@@ -1,3 +1,5 @@
+import java.math.BigInteger;
+
 /**
  *A helper class for IBAN validation.
  *
@@ -8,7 +10,7 @@ public final class HelperClass {
 
     // Creating constants to be used for IBAN validation
     public final static int IBAN_NUMBER_LENGTH_LT = 20;
-    public final static int IBAN_MOD = 97;
+    public final static BigInteger IBAN_MOD = new BigInteger("97");
 
     // Creating a method for IBAN validation to be accessed in package only
     protected static boolean validateIban(String accNumber) {
@@ -33,6 +35,7 @@ public final class HelperClass {
         }
 
         // Checking the final condition: If the IBAN is valid, the remainder equals 1 - returns true.
-        return numericValue % IBAN_MOD == 1;
+        BigInteger ibanNumber = new BigInteger(numericAccNumber.toString());
+        return ibanNumber.mod(IBAN_MOD).intValue() == 1;
     }
 }
